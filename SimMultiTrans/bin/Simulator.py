@@ -80,7 +80,8 @@ class Simulator(object):
             self.road_set[node] = self.graph.graph_top[node]['node'].road
 
             for dest in self.road_set[node]:
-                self.vehicle_flow[node][dest] = []
+                self.vehicle_flow[node][dest]= []
+
 
         # try:
         #     os.remove(os.path.join(RESULTS, 'Simulator.log'))
@@ -456,7 +457,8 @@ class Simulator(object):
             # saved_wait_time[node] = {}
 
             for dest in self.vehicle_flow[node]:
-                saved_vehicle_flow[node][dest] = self.vehicle_flow[node][dest].tolist()
+                saved_vehicle_flow[node][dest] = {}
+                saved_vehicle_flow[node][dest]['all'] = self.vehicle_flow[node][dest].tolist()
 
             for mode in self.vehicle_attri:
                 saved_q_length[node][mode] = self.passenger_queuelen[node][mode].tolist()
