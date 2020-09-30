@@ -169,8 +169,8 @@ class Simulator(object):
         saved_graph = copy.deepcopy(self.graph.graph_top)  # TODO: try to avoid this
         for node in saved_graph:
             saved_graph[node]['node'] = None
-        with open(os.path.join(RESULTS, 'city_topology.json'), 'w') as json_file:
-            json.dump(saved_graph, json_file)
+        with open(os.path.join(RESULTS, 'city_topology.pickle'), 'wb') as pickle_file:
+            pickle.dump(saved_graph, pickle_file)
         # print('.', end='')
 
         # cnt = len(self.graph.get_all_nodes())
@@ -306,8 +306,8 @@ class Simulator(object):
             'Routing_method': self.routing.routing_method,
             'Rebalancing_method': self.rebalance.policy
         }
-        with open(os.path.join(RESULTS, 'simulation_info.json'), 'w') as json_file:
-            json.dump(simulation_info, json_file)
+        with open(os.path.join(RESULTS, 'simulation_info.pickle'), 'wb') as pickle_file:
+            pickle.dump(simulation_info, pickle_file)
 
         self.plot = Plot(self.graph, self.time_horizon, self.start_time)
 
@@ -489,8 +489,8 @@ class Simulator(object):
             'total_num_arrival': total_num_arrival,
             'not_served': self.not_served
         }
-        with open(os.path.join(path_name, f'metrics{suffix}.json'), 'w') as json_file:
-            json.dump(saved_metrics, json_file)
+        with open(os.path.join(path_name, f'metrics{suffix}.pickle'), 'wb') as pickle_file:
+            pickle.dump(saved_metrics, pickle_file)
 
         self.plot.queue_p = self.passenger_queuelen
         self.plot.queue_v = self.vehicle_queuelen
