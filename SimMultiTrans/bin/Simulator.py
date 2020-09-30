@@ -494,7 +494,8 @@ class Simulator(object):
             total_num_arrival += self.total_arrival['total'][node]
 
         total_vehicle = {}
-        for mode in self.vehicle_attri:   
+        for mode in self.vehicle_attri: 
+            total_vehicle[mode] = self.vehicle_attri[mode]['total']  
         saved_metrics = {
             'total_trip': self.total_trip,
             'total_tripdist': self.total_trip_dist,
