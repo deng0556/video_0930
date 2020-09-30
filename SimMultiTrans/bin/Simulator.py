@@ -429,7 +429,7 @@ class Simulator(object):
                 self.passenger_queuelen[nid][mode][timestep] = len(node.passenger[mode])
                 self.vehicle_queuelen[nid][mode][timestep] = len(node.vehicle[mode])
         for dest in self.road_set[nid]:
-            self.vehicle_flow[node][dest][timestep] = len(self.road_set[node][dest].vehicle)
+            self.vehicle_flow[nid][dest][timestep] = len(self.road_set[nid][dest].vehicle)
 
     def node_rebalance(self, node, reb_trans):
         # dispatch
