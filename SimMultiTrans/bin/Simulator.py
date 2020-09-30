@@ -75,12 +75,12 @@ class Simulator(object):
             self.vehicle_queuelen[node] = {}
             self.passenger_waittime[node] = {}
 
-            self.vehicle_flow[node] = {}
+            #self.vehicle_flow[node] = {}
 
             self.road_set[node] = self.graph.graph_top[node]['node'].road
 
-            for dest in self.road_set[node]:
-                self.vehicle_flow[node][dest]= []
+            #for dest in self.road_set[node]:
+            #    self.vehicle_flow[node][dest]= []
 
 
         # try:
@@ -182,8 +182,8 @@ class Simulator(object):
                 self.passenger_queuelen[node][mode] = np.zeros(self.time_horizon)
                 self.passenger_waittime[node][mode] = 0
 
-            for dest in self.road_set[node]:
-                self.vehicle_flow[node][dest] = np.zeros(self.time_horizon)
+            #for dest in self.road_set[node]:
+            #    self.vehicle_flow[node][dest] = np.zeros(self.time_horizon)
 
 
 
@@ -429,8 +429,8 @@ class Simulator(object):
             if mode in node.mode:
                 self.passenger_queuelen[nid][mode][timestep] = len(node.passenger[mode])
                 self.vehicle_queuelen[nid][mode][timestep] = len(node.vehicle[mode])
-        for dest in self.road_set[nid]:
-            self.vehicle_flow[nid][dest][timestep] = len(self.road_set[nid][dest].vehicle)
+        #for dest in self.road_set[nid]:
+        #    self.vehicle_flow[nid][dest][timestep] = len(self.road_set[nid][dest].vehicle)
 
     def node_rebalance(self, node, reb_trans):
         # dispatch
@@ -448,22 +448,33 @@ class Simulator(object):
         os.makedirs(path_name, exist_ok=True)
         saved_q_length = {}
         saved_v_length = {}
-        saved_vehicle_flow = {}
+        # saved_vehicle_flow = {}
         # saved_wait_time = {}
-        for node in self.graph.graph_top:
-            saved_q_length[node] = {}
-            saved_v_length[node] = {}
-            saved_vehicle_flow[node] = {}
-            # saved_wait_time[node] = {}
 
-            for dest in self.vehicle_flow[node]:
-                saved_vehicle_flow[node][dest] = {}
-                saved_vehicle_flow[node][dest]['all'] = self.vehicle_flow[node][dest].tolist()
+        for node in self.graph.get_allnodes():
+             saved_q_length[node] = {}
+             saved_v_length[node] = {}
+             saved_v_flow[node] = {}
+ 
+             for mode in self.vehicle_attri:
+                 saved_q_length[node][mode] = self.passenger_queuelen[node][mode]
+                 saved_v_length[node][mode] = self.vehicle_queuelen[node][mode]
+ 
+             for dest in self.road_set[node]:
+                 saved_v_flow[node][dest] = {}
+                 saved_v_flow[node][dest]['all'] = self.graph.graph_top[node]['node'].road[dest].history_flow
+                 saved_v_flow[node][dest]['reb'] = self.graph.graph_top[node]['node'].road[dest].history_rebflow
+        
+        # for node in self.graph.graph_top:
+        #     saved_q_length[node] = {}
+        #     saved_v_length[node] = {}
+        #     # saved_vehicle_flow[node] = {}
+        #     # saved_wait_time[node] = {}
 
-            for mode in self.vehicle_attri:
-                saved_q_length[node][mode] = self.passenger_queuelen[node][mode].tolist()
-                saved_v_length[node][mode] = self.vehicle_queuelen[node][mode].tolist()
-                # saved_wait_time[node][mode] = self.passenger_waittime[node][mode]
+        #     for mode in self.vehicle_attri:
+        #         saved_q_length[node][mode] = self.passenger_queuelen[node][mode].tolist()
+        #         saved_v_length[node][mode] = self.vehicle_queuelen[node][mode].tolist()
+        #         # saved_wait_time[node][mode] = self.passenger_waittime[node][mode]
 
         # print(saved_q_length)
         with open(os.path.join(path_name, f'passenger_queue{suffix}.pickle'), 'wb') as pickle_file:
