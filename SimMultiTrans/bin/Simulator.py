@@ -455,16 +455,13 @@ class Simulator(object):
             saved_q_length[node] = {}
             saved_v_length[node] = {}
             saved_v_flow[node] = {}
- 
             for mode in self.vehicle_attri:
                 saved_q_length[node][mode] = self.passenger_queuelen[node][mode]
                 saved_v_length[node][mode] = self.vehicle_queuelen[node][mode]
- 
             for dest in self.road_set[node]:
                 saved_v_flow[node][dest] = {}
                 saved_v_flow[node][dest]['all'] = self.graph.graph_top[node]['node'].road[dest].history_flow
                 saved_v_flow[node][dest]['reb'] = self.graph.graph_top[node]['node'].road[dest].history_rebflow
-
         # for node in self.graph.graph_top:
         #     saved_q_length[node] = {}
         #     saved_v_length[node] = {}
