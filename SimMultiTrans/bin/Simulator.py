@@ -428,8 +428,7 @@ class Simulator(object):
             if mode in node.mode:
                 self.passenger_queuelen[nid][mode][timestep] = len(node.passenger[mode])
                 self.vehicle_queuelen[nid][mode][timestep] = len(node.vehicle[mode])
-        #for dest in self.road_set[node]:
-        for dest in self.graph.graph_top[node]['node'].road:
+        for dest in self.road_set[nid]:
             self.vehicle_flow[node][dest][timestep] = len(self.road_set[node][dest].vehicle)
 
     def node_rebalance(self, node, reb_trans):
