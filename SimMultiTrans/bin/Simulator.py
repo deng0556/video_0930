@@ -448,6 +448,7 @@ class Simulator(object):
         os.makedirs(path_name, exist_ok=True)
         saved_q_length = {}
         saved_v_length = {}
+        saved_v_flow = {}
         # saved_vehicle_flow = {}
         # saved_wait_time = {}
 
