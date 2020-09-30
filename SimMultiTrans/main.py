@@ -29,9 +29,9 @@ def main():
     # simu.rebalance.set_policy(p_name)
 
     simu.initialize(seed=0)
-    action = np.random.random((len(g.get_all_nodes()), len(g.get_all_nodes())))
+    action = np.random.random((len(g.get_allnodes()), len(g.get_allnodes())))
     sim_action = dict()
-    for idx, node in enumerate(g.get_all_nodes()):
+    for idx, node in enumerate(g.get_allnodes()):
         sim_action[node] = action[idx, :]/np.sum(action[idx, :])
     c_time = 0
     start_time = time.time()
