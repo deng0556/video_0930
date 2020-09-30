@@ -492,13 +492,17 @@ class Simulator(object):
         total_num_arrival = 0
         for node in self.total_arrival['total']:
             total_num_arrival += self.total_arrival['total'][node]
+
+        total_vehicle = {}
+        for mode in self.vehicle_attri:   
         saved_metrics = {
             'total_trip': self.total_trip,
             'total_tripdist': self.total_trip_dist,
             'total_triptime': self.total_trip_time,
             'total_arrival': self.total_arrival,
             'total_num_arrival': total_num_arrival,
-            'not_served': self.not_served
+            'not_served': self.not_served,
+            'total_vehicle': total_vehicle
         }
         with open(os.path.join(path_name, f'metrics{suffix}.pickle'), 'wb') as pickle_file:
             pickle.dump(saved_metrics, pickle_file)
