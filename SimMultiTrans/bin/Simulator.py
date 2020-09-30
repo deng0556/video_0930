@@ -485,7 +485,7 @@ class Simulator(object):
             pickle.dump(self.passenger_waittime, pickle_file)
 
         with open(os.path.join(path_name, f'vehicle_flow{suffix}.pickle'), 'wb') as pickle_file:
-            pickle.dump(saved_vehicle_flow, pickle_file)
+            pickle.dump(saved_v_flow, pickle_file)
 
 
 
